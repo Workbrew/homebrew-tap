@@ -9,7 +9,7 @@ cask "workbrew" do
     end
   end
 
-  url "https://console.workbrew.com/downloads/macos?api_key=#{workbrew_api_key}"
+  url "https://console.workbrew.com/downloads/macos?api_key=#{workbrew_api_key}&version=#{version}"
   name "Workbrew"
   desc "Installer for Workbrew Agent"
   homepage "https://workbrew.com/"
