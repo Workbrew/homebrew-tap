@@ -37,6 +37,6 @@ jobs:
           HOMEBREW_WORKBREW_API_KEY: "STUB"
 
       - if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
-        run: brew fetch workbrew/private/workbrew
+        run: brew fetch workbrew/tap/workbrew
         env:
           HOMEBREW_WORKBREW_API_KEY: ${{ secrets.HOMEBREW_WORKBREW_API_KEY }}
