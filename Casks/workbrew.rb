@@ -26,6 +26,15 @@ cask "workbrew" do
     EOS
   end
 
+  postflight do
+    next if ENV["HOMEBREW_WORKBREW_AGENT_DAEMON_MODE"].present?
+
+    ohai "Restarting Workbrew Agent"
+    launchdaemon = "/Library/LaunchDaemons/com.workbrew.workbrew-agent.plist"
+    system_command "/bin/launchctl", args: ["bootout",   "system", launchdaemon], sudo: true
+    system_command "/bin/launchctl", args: ["bootstrap", "system", launchdaemon], sudo: true
+  end
+
   uninstall rmdir: "/opt/workbrew"
 
   caveats <<~EOS
