@@ -4,8 +4,12 @@ cask "workbrew" do
 
   def workbrew_api_key
     @workbrew_api_key ||= ENV.fetch("HOMEBREW_WORKBREW_API_KEY") do
-      File.read("/opt/workbrew/home/Library/Application Support/com.workbrew.workbrew-agent/api_key")
-          .strip
+      api_key_directory = Pathname.new("/opt/workbrew/home/Library/Application Support/com.workbrew.workbrew-agent")
+      if (device_api_key_file = api_key_directory/"device_api_key").exist?
+        device_api_key_file.read.strip
+      else
+        (api_key_directory/"api_key").read.strip
+      end
     end
   end
 
