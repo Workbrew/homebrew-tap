@@ -1,6 +1,6 @@
 cask "workbrew" do
-  version "0.2.1"
-  sha256 "e80e403014a3a9f99b06607f39c532da2d11291ed0cf8f379099993b22eba8b8"
+  version "0.2.2"
+  sha256 "10d9eff43d288e2f9d6d6ccaa77d37c9b4b7fee35edc1b9627339035164ad169"
 
   def workbrew_api_key
     @workbrew_api_key ||= ENV.fetch("HOMEBREW_WORKBREW_API_KEY") do
