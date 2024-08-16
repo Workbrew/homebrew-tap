@@ -2,18 +2,7 @@ cask "workbrew" do
   version "0.2.6"
   sha256 "30570b0308dadabbeacdf086953e0e5a66c2ba3b92afc5f4920a581c48b849ee"
 
-  def workbrew_api_key
-    @workbrew_api_key ||= ENV.fetch("HOMEBREW_WORKBREW_API_KEY") do
-      api_key_directory = Pathname.new("/opt/workbrew/home/Library/Application Support/com.workbrew.workbrew-agent")
-      if (device_api_key_file = api_key_directory/"device_api_key").exist?
-        device_api_key_file.read.strip
-      else
-        (api_key_directory/"api_key").read.strip
-      end
-    end
-  end
-
-  url "https://console.workbrew.com/downloads/macos?api_key=#{workbrew_api_key}&version=#{version}"
+  url "https://console.workbrew.com/downloads/macos?version=#{version}"
   name "Workbrew"
   desc "Installer for Workbrew Agent"
   homepage "https://workbrew.com/"
