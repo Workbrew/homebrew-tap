@@ -33,10 +33,5 @@ jobs:
       - run: brew test-bot --only-setup
 
       - run: brew test-bot --only-tap-syntax
-        env:
-          HOMEBREW_WORKBREW_API_KEY: "STUB"
 
-      - if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
-        run: brew fetch workbrew/tap/workbrew
-        env:
-          HOMEBREW_WORKBREW_API_KEY: ${{ secrets.HOMEBREW_WORKBREW_API_KEY }}
+      - run: brew fetch workbrew/tap/workbrew
