@@ -20,7 +20,7 @@ cask "workbrew" do
 
     workbrew_directory = Pathname.new("/opt/workbrew")
     workbrew_api_key_directory = workbrew_directory/"home/Library/Application Support/com.workbrew.workbrew-agent"
-    next if (workbrew_api_key_directory/"device_api_key").exist? || (api_key_directory/"api_key").exist?
+    next if %w[device_api_key api_key].any? { |file| (workbrew_api_key_directory/file).exist? }
 
     raise <<~EOS
       The Workbrew Installer must have its API key setup before installation.
