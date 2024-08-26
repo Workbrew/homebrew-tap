@@ -10,12 +10,22 @@ cask "workbrew" do
   pkg "Workbrew-#{version}.pkg"
 
   preflight do
-    next if ENV["USER"] == "workbrew"
+    if ENV["USER"] != "workbrew"
+      raise <<~EOS
+        The Workbrew Installer must be run manually the first time.
+        This Cask is only used for upgrades. Download it and follow the instructions:
+          #{Formatter.url("https://console.workbrew.com")}
+      EOS
+    end
+
+    workbrew_directory = Pathname.new("/opt/workbrew")
+    workbrew_api_key_directory = workbrew_directory/"home/Library/Application Support/com.workbrew.workbrew-agent"
+    return if (workbrew_api_key_directory/"device_api_key").exist? || (api_key_directory/"api_key").exist?
 
     raise <<~EOS
-      The Workbrew installer must be run manually the first time.
-      This Cask is only used for upgrades. Download it and follow the instructions:
-        #{Formatter.url("https://console.workbrew.com/downloads/macos")}
+      The Workbrew Installer must have its API key setup before installation.
+      Download it and follow the instructions:
+        #{Formatter.url("https://console.workbrew.com")}
     EOS
   end
 
