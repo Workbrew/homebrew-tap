@@ -14,15 +14,12 @@ jobs:
   test-bot:
     runs-on: macos-14
     steps:
-      - name: Set up Homebrew
-        id: set-up-homebrew
+      - id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
         with:
           token: ${{ github.token }}
 
-      - name: Cache Homebrew Bundler RubyGems
-        id: cache
-        uses: actions/cache@v4
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.set-up-homebrew.outputs.gems-path }}
           key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
@@ -34,4 +31,26 @@ jobs:
 
       - run: brew test-bot --only-tap-syntax
 
-      - run: brew fetch workbrew/tap/workbrew
+      - run: "! brew install workbrew/tap/workbrew"
+
+      - run: curl --remote-name --remote-header-name --location https://console.workbrew.com/downloads/macos
+
+      - run: echo | sudo tee /var/log/install.log
+
+      - run: sudo installer -verbose -pkg Workbrew-*.pkg -target /
+
+      - if: '!cancelled()'
+        run: sudo cat /var/log/install.log
+
+      - run: sudo chown -R workbrew /Users/runner/work/homebrew-tap/homebrew-tap
+
+      - run: "! /opt/workbrew/bin/brew install workbrew/tap/workbrew"
+
+      - run: sudo mkdir -p "/opt/workbrew/home/Library/Application Support/com.workbrew.workbrew-agent"
+
+      - run: echo "this is an API key" | sudo tee "/opt/workbrew/home/Library/Application Support/com.workbrew.workbrew-agent/api_key"
+
+      - run: /opt/workbrew/bin/brew install --debug --verbose workbrew/tap/workbrew
+
+      - if: 'always()'
+        run: sudo chown -R "${USER}" /Users/runner/work/homebrew-tap/homebrew-tap /opt/homebrew/Library/Taps/workbrew
