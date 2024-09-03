@@ -1,6 +1,6 @@
 cask "workbrew" do
-  version "0.9.1"
-  sha256 "7e90059741ad37a31a57dccf4105878a159d5e34c1e8b6ef03b09831fe959ab0"
+  version "0.9.2"
+  sha256 "e5c8c39ad9c2a89abb1accf2d0d55b05aefba182cc559d27a56c10ef184f1d09"
 
   url "https://console.workbrew.com/downloads/macos?version=#{version}"
   name "Workbrew"
@@ -31,6 +31,7 @@ cask "workbrew" do
 
   postflight do
     next if ENV["HOMEBREW_WORKBREW_AGENT_DAEMON_MODE"].present?
+    next if ENV["GITHUB_ACTIONS"].present?
 
     ohai "Restarting Workbrew Agent"
     launchdaemon = "/Library/LaunchDaemons/com.workbrew.workbrew-agent.plist"
