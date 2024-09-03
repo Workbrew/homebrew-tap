@@ -31,6 +31,7 @@ cask "workbrew" do
 
   postflight do
     next if ENV["HOMEBREW_WORKBREW_AGENT_DAEMON_MODE"].present?
+    next if ENV["GITHUB_ACTIONS"].present?
 
     ohai "Restarting Workbrew Agent"
     launchdaemon = "/Library/LaunchDaemons/com.workbrew.workbrew-agent.plist"
