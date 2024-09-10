@@ -1,6 +1,6 @@
 cask "workbrew" do
-  version "0.9.3"
-  sha256 "d5a74e6f08bf0d3580c2ac2bb4c1d12183a6be485c1850e6e53e9fd0513a5d35"
+  version "0.9.4"
+  sha256 "d9477b93dcead28463ea12cbd27af4057ba9b281a612a0ab20f80a8a3a7d3d42"
 
   url "https://console.workbrew.com/downloads/macos?version=#{version}"
   name "Workbrew"
