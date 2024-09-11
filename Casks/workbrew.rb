@@ -7,6 +7,8 @@ cask "workbrew" do
   desc "Installer for Workbrew Agent"
   homepage "https://workbrew.com/"
 
+  auto_updates true
+
   pkg "Workbrew-#{version}.pkg"
 
   preflight do
