@@ -7,6 +7,8 @@ cask "workbrew" do
   desc "Installer for Workbrew Agent"
   homepage "https://workbrew.com/"
 
+  disable! date: "2024-09-17", because: "Workbrew cask is no longer supported."
+
   auto_updates true
 
   pkg "Workbrew-#{version}.pkg"
